@@ -13,6 +13,12 @@ public class Employee {
         this.lastName = lastName;
         this.shopID = shopID;
     }
+    
+    public Employee(String firstName, String lastName, int shopID) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.shopID = shopID;
+    }
 
     public int getID() {
         return ID;

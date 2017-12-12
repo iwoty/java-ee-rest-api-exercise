@@ -10,6 +10,10 @@ public class Shop {
         this.location = location;
     }
 
+    public Shop(String location) {
+        this.location = location;
+    }
+
     public int getID() {
         return ID;
     }

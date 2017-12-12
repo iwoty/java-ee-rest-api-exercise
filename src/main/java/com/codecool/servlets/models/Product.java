@@ -2,12 +2,18 @@ package com.codecool.servlets.models;
 
 public class Product {
 
+
     private int ID;
     private String name;
     private float price;
 
     public Product(int ID, String name, float price) {
         this.ID = ID;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(String name, float price) {
         this.name = name;
         this.price = price;
     }
