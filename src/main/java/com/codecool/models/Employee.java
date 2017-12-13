@@ -1,4 +1,4 @@
-package com.codecool.servlets.models;
+package com.codecool.models;
 
 public class Employee {
 
@@ -13,7 +13,7 @@ public class Employee {
         this.lastName = lastName;
         this.shopID = shopID;
     }
-    
+
     public Employee(String firstName, String lastName, int shopID) {
         this.firstName = firstName;
         this.lastName = lastName;

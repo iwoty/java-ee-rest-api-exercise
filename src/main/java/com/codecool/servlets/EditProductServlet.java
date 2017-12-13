@@ -1,4 +1,4 @@
-package com.codecool.servlets;
+package com.codecool;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,14 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns= {"/employees/"})
-public class EmployeeWithIDHttpServlet extends HttpServlet {
-
-    protected void doDelete( HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
+@WebServlet(urlPatterns= {"/products/"})
+public class EditProductServlet extends HttpServlet {
 
     protected void doPut( HttpServletRequest request,
                            HttpServletResponse response)
