@@ -1,5 +1,5 @@
 CREATE TABLE products (
-    id INTEGER,
+    id SERIAL,
     name TEXT NOT NULL,
     price REAL NOT NULL,
     PRIMARY KEY (id)

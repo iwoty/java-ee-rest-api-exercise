@@ -1,5 +1,5 @@
 CREATE TABLE shops (
-    id INTEGER,
+    id SERIAL,
     location TEXT,
     PRIMARY KEY (id)
 );
