@@ -1,4 +1,4 @@
-package com.codecool.servlets.DAO;
+package com.codecool.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
