@@ -1,4 +1,7 @@
 package com.codecool.servlets;
 
-public class CreateProductServlet {
+import javax.servlet.http.HttpServlet;
+
+public class CreateProductServlet extends HttpServlet {
+
 }
