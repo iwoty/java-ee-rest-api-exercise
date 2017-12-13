@@ -1,5 +1,7 @@
 package com.codecool.servlets;
 
+import com.codecool.DAO.ConnectionToDB;
+import com.codecool.DAO.EmployeeDAO;
 import com.codecool.EmployeeToJSON;
 import com.codecool.models.Employee;
 
@@ -9,9 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class GetEmployeesServlet extends HttpServlet {
+
+    private Connection connection;
+    private EmployeeDAO employeeDAO;
+
+    public GetEmployeesServlet() {
+        this.connection = ConnectionToDB.getConnection();
+        this.employeeDAO = new EmployeeDAO(connection);
+    }
 
     protected void doGet( HttpServletRequest request,
                              HttpServletResponse response)
@@ -20,7 +31,7 @@ public class GetEmployeesServlet extends HttpServlet {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         EmployeeToJSON objectToJSON = new EmployeeToJSON();
-        ArrayList<Employee> employees;
+        ArrayList<Employee> employees = ;
         for(Employee employee : employees) {
 
             try {
