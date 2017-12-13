@@ -40,12 +40,21 @@
   <!--</servlet-mapping>-->
 
 
+  <!--<servlet>-->
+      <!--<servlet-name>CreateProductServlet</servlet-name>-->
+      <!--<servlet-class>com.codecool.servlets.CreateProductServlet</servlet-class>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+      <!--<servlet-name>CreateProductServlet</servlet-name>-->
+      <!--<url-pattern>/products/*</url-pattern>-->
+  <!--</servlet-mapping>-->
+
   <servlet>
-      <servlet-name>CreateProductServlet</servlet-name>
-      <servlet-class>com.codecool.servlets.CreateProductServlet</servlet-class>
+      <servlet-name>GetProductServlet</servlet-name>
+      <servlet-class>com.codecool.servlets.GetProductServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>CreateProductServlet</servlet-name>
-      <url-pattern>/products/*</url-pattern>
+    <servlet-name>GetProductServlet</servlet-name>
+    <url-pattern>/products/*</url-pattern>
   </servlet-mapping>
 </web-app>

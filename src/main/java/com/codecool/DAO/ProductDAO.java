@@ -32,12 +32,15 @@ public class ProductDAO extends AbstractDAO {
     }
 
     public Product getByID(String ID) throws SQLException {
+        ResultSet rs = null;
         String query = "SELECT * FROM products WHERE id = ?;";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, ID);
-        ResultSet resultSet = statement.executeQuery();
-
-        return this.createProductFromResultSet(resultSet);
+        statement.setInt(1, Integer.parseInt(ID));
+        rs = statement.executeQuery();
+        if(rs.next()) {
+            return this.createProductFromResultSet(rs);
+        }
+        return null;
     }
 
     public void create(Product product) throws SQLException {

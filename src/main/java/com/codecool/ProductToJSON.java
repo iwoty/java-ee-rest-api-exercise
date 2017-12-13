@@ -14,7 +14,7 @@ public class ProductToJSON {
         for (Method method : methods) {
             if(method.getName().startsWith("get")) {
                 String[] methodName = method.getName().split("get");
-                jsonObject.append(methodName[1].toLowerCase(), method.invoke(product));
+                jsonObject.append(methodName[1].toLowerCase(), method.invoke(product).toString());
                 employeeJSONObject = jsonObject.toString();
             }
         }return employeeJSONObject;
