@@ -1,4 +1,4 @@
-package com.codecool.servlets.models;
+package com.codecool.models;
 
 public class Shop {
 
