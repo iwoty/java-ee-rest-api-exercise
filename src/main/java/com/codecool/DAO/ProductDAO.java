@@ -63,7 +63,7 @@ public class ProductDAO extends AbstractDAO {
 
     private void setPreparedStatement(PreparedStatement statement, Product product) throws SQLException {
         statement.setString(1, product.getName());
-        statement.setString(2, String.valueOf(product.getPrice()));
+        statement.setFloat(2, product.getPrice());
     }
 
     Product createProductFromResultSet(ResultSet resultSet) throws SQLException {

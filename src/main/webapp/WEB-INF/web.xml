@@ -30,12 +30,22 @@
       <!--<url-pattern>/products</url-pattern>-->
   <!--</servlet-mapping>-->
 
+  <!--<servlet>-->
+      <!--<servlet-name>DeleteProductServlet</servlet-name>-->
+      <!--<servlet-class>com.codecool.servlets.DeleteProductServlet</servlet-class>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+      <!--<servlet-name>DeleteProductServlet</servlet-name>-->
+      <!--<url-pattern>/products/*</url-pattern>-->
+  <!--</servlet-mapping>-->
+
+
   <servlet>
-      <servlet-name>DeleteProductServlet</servlet-name>
-      <servlet-class>com.codecool.servlets.DeleteProductServlet</servlet-class>
+      <servlet-name>CreateProductServlet</servlet-name>
+      <servlet-class>com.codecool.servlets.CreateProductServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>DeleteProductServlet</servlet-name>
+      <servlet-name>CreateProductServlet</servlet-name>
       <url-pattern>/products/*</url-pattern>
   </servlet-mapping>
 </web-app>
