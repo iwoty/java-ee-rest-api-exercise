@@ -1,9 +1,7 @@
 package com.codecool.DAO;
 
 import com.codecool.models.Product;
-import com.sun.org.apache.regexp.internal.RE;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,7 +43,7 @@ public class ProductDAO extends AbstractDAO {
     public void create(Product product) throws SQLException {
         String query = "INSERT INTO products (name, price) VALUES (?, ?);";
         PreparedStatement statement = connection.prepareStatement(query);
-        PreparedStatement(statement, product);
+        setPreparedStatement(statement, product);
         statement.executeUpdate();
     }
 
@@ -59,19 +57,19 @@ public class ProductDAO extends AbstractDAO {
     public void delete(Product product) throws SQLException {
         String query = "DELETE FROM products WHERE id = ?;";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, product.getID());
+        statement.setString(1, String.valueOf(product.getID()));
         statement.executeUpdate();
     }
 
     private void setPreparedStatement(PreparedStatement statement, Product product) throws SQLException {
         statement.setString(1, product.getName());
-        statement.setString(2, product.getPrice());
+        statement.setString(2, String.valueOf(product.getPrice()));
     }
 
     Product createProductFromResultSet(ResultSet resultSet) throws SQLException {
-        String ID = resultSet.getString("id");
+        int ID = Integer.parseInt(resultSet.getString("id"));
         String name = resultSet.getString("name");
-        String price = resultSet.getString("price");
+        float price = Float.parseFloat(resultSet.getString("price"));
 
         return new Product(ID, name, price);
     }
