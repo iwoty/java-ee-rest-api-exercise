@@ -30,15 +30,15 @@ public class GetEmployeesServlet extends HttpServlet {
 
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        EmployeeToJSON objectToJSON = new EmployeeToJSON();
-        ArrayList<Employee> employees = ;
-        for(Employee employee : employees) {
 
-            try {
-                response.getWriter().write(objectToJSON.employeeToJSON());
-            } catch (InvocationTargetException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+        EmployeeToJSON objectToJSON = new EmployeeToJSON();
+
+        try {
+
+            response.getWriter().write(objectToJSON.employeeToJSON());
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
+
 }

@@ -1,5 +1,5 @@
 CREATE TABLE employees (
-    id INTEGER,
+    id SERIAL,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     shop_id INTEGER,
