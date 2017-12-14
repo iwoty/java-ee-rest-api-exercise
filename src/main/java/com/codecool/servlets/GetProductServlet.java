@@ -2,8 +2,9 @@ package com.codecool.servlets;
 
 import com.codecool.DAO.ConnectionToDB;
 import com.codecool.DAO.ProductDAO;
-import com.codecool.ProductToJSON;
+import com.codecool.models.Product;
 import com.codecool.services.IDParser;
+import com.codecool.services.ProductToJSON;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +42,7 @@ public class GetProductServlet extends HttpServlet {
                 String productToJSON = jsonObject.productToJSON();
                 response.getWriter().write(productToJSON);
             } else{
-                response.getWriter().write("chuj");
+                response.getWriter().write("No such ID");
             }
         } catch (SQLException | AccessControlException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
@@ -61,5 +62,20 @@ public class GetProductServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+    }
+
+
+    protected void doPut( HttpServletRequest request,
+                          HttpServletResponse response) {
+
+        String id = request.getParameter("id");
+        try {
+            Product product = this.productDAO.getByID(id);
+            product.setName(request.getParameter("name"));
+            product.setPrice(Integer.parseInt(request.getParameter("price")));
+            this.productDAO.update(product);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

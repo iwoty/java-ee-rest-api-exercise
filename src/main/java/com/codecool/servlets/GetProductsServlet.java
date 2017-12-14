@@ -2,7 +2,7 @@ package com.codecool.servlets;
 
 import com.codecool.DAO.ConnectionToDB;
 import com.codecool.DAO.ProductDAO;
-import com.codecool.ProductToJSON;
+import com.codecool.services.ProductToJSON;
 import com.codecool.models.Product;
 
 import javax.servlet.ServletException;

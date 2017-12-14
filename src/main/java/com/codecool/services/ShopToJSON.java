@@ -1,6 +1,5 @@
-package com.codecool;
+package com.codecool.services;
 
-import com.codecool.models.Product;
 import com.codecool.models.Shop;
 import org.json.JSONObject;
 
@@ -16,14 +15,14 @@ public class ShopToJSON {
 
     public String shopToJSON() throws InvocationTargetException, IllegalAccessException{
         JSONObject jsonObject = new JSONObject();
-        String employeeJSONObject = null;
-        Method[] methods = Product.class.getDeclaredMethods();
+        String shopToJSON = null;
+        Method[] methods = Shop.class.getDeclaredMethods();
         for (Method method : methods) {
             if(method.getName().startsWith("get")) {
                 String[] methodName = method.getName().split("get");
                 jsonObject.append(methodName[1].toLowerCase(), method.invoke(this.shop));
-                employeeJSONObject = jsonObject.toString();
+                shopToJSON = jsonObject.toString();
             }
-        }return employeeJSONObject;
+        }return shopToJSON;
     }
 }

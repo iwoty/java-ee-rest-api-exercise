@@ -1,11 +1,8 @@
 package com.codecool.servlets;
 
 import com.codecool.DAO.ConnectionToDB;
-import com.codecool.DAO.ProductDAO;
 import com.codecool.DAO.ShopDAO;
-import com.codecool.ProductToJSON;
-import com.codecool.ShopToJSON;
-import com.codecool.models.Product;
+import com.codecool.services.ShopToJSON;
 import com.codecool.models.Shop;
 
 import javax.servlet.ServletException;
@@ -18,7 +15,6 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/shops")
@@ -42,7 +38,7 @@ public class GetShopsServlet extends HttpServlet {
 
             for(Shop shop : shops) {
                 try {
-                    ShopToJSON jsonObject = new ProductToJSON(shop);
+                    ShopToJSON jsonObject = new ShopToJSON(shop);
                     writer.write(jsonObject.shopToJSON());
                 } catch (InvocationTargetException | IllegalAccessException e) {
                     e.printStackTrace();

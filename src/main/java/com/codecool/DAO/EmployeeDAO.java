@@ -17,7 +17,7 @@ public class EmployeeDAO extends AbstractDAO {
         connection = connectionToDB;
     }
 
-    public List<Employee> readlAll() throws SQLException {
+    public List<Employee> readAll() throws SQLException {
         List<Employee> employeeList = new ArrayList<>();
 
         String query = "SELECT * FROM employees;";
@@ -45,7 +45,7 @@ public class EmployeeDAO extends AbstractDAO {
     }
 
     public void create(Employee employee) throws SQLException {
-        String query = "INSERT INTO employee (first_name, last_name, shop_id) VALUES (?, ?, ?);";
+        String query = "INSERT INTO employees (first_name, last_name, shop_id) VALUES (?, ?, ?);";
         PreparedStatement statement = connection.prepareStatement(query);
         setPreparedCreateStatement(statement, employee);
         statement.executeUpdate();
@@ -53,8 +53,8 @@ public class EmployeeDAO extends AbstractDAO {
 
     private void setPreparedCreateStatement(PreparedStatement statement, Employee employee) throws SQLException {
         statement.setString(1, employee.getFirstName());
-        statement.setString(1, employee.getLastName());
-        statement.setInt(2, employee.getShopID());
+        statement.setString(2, employee.getLastName());
+        statement.setInt(3, employee.getShopID());
     }
 
     public void update(Employee employee) throws SQLException {
@@ -74,7 +74,7 @@ public class EmployeeDAO extends AbstractDAO {
     public void delete(Employee employee) throws SQLException {
         String query = "DELETE FROM employees WHERE id = ?;";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, String.valueOf(employee.getID()));
+        statement.setInt(1, employee.getID());
         statement.executeUpdate();
     }
 

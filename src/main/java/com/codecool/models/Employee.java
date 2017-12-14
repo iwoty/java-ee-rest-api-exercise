@@ -7,6 +7,8 @@ public class Employee {
     private String lastName;
     private int shopID;
 
+    public Employee() {}
+
     public Employee(int ID, String firstName, String lastName, int shopID) {
         this.ID = ID;
         this.firstName = firstName;

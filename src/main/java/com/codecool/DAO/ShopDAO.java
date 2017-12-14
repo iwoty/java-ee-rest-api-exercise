@@ -1,6 +1,5 @@
 package com.codecool.DAO;
 
-import com.codecool.models.Employee;
 import com.codecool.models.Shop;
 
 import java.sql.Connection;
@@ -18,7 +17,7 @@ public class ShopDAO extends AbstractDAO {
         connection = connectionToDB;
     }
 
-    public List<Shop> readlAll() throws SQLException {
+    public List<Shop> readAll() throws SQLException {
         List<Shop> shopList = new ArrayList<>();
 
         String query = "SELECT * FROM shops;";
@@ -71,7 +70,7 @@ public class ShopDAO extends AbstractDAO {
     public void delete(Shop shop) throws SQLException {
         String query = "DELETE FROM shops WHERE id = ?;";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, String.valueOf(shop.getID()));
+        statement.setInt(1, shop.getID());
         statement.executeUpdate();
     }
 

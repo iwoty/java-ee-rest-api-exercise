@@ -1,27 +1,26 @@
-package com.codecool;
+package com.codecool.services;
 
-import com.codecool.models.Employee;
+import com.codecool.models.Product;
 import org.json.JSONObject;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class EmployeeToJSON {
+public class ProductToJSON {
 
-    private Employee employee;
+    private Product product;
 
-    public EmployeeToJSON(Employee employee) {
-        this.employee = employee;
+    public ProductToJSON(Product product) {
+        this.product = product;
     }
 
-    public String employeeToJSON() throws InvocationTargetException, IllegalAccessException{
+    public String productToJSON() throws InvocationTargetException, IllegalAccessException{
         JSONObject jsonObject = new JSONObject();
         String employeeJSONObject = null;
-        Method[] methods = Employee.class.getDeclaredMethods();
+        Method[] methods = Product.class.getDeclaredMethods();
         for (Method method : methods) {
             if(method.getName().startsWith("get")) {
                 String[] methodName = method.getName().split("get");
-                jsonObject.append(methodName[1].toLowerCase(), method.invoke(this.employee));
+                jsonObject.append(methodName[1].toLowerCase(), method.invoke(this.product).toString());
                 employeeJSONObject = jsonObject.toString();
             }
         }return employeeJSONObject;

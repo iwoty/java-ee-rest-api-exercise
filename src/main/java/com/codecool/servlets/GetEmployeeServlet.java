@@ -2,11 +2,12 @@ package com.codecool.servlets;
 
 import com.codecool.DAO.ConnectionToDB;
 import com.codecool.DAO.EmployeeDAO;
-import com.codecool.DAO.ProductDAO;
-import com.codecool.ProductToJSON;
+import com.codecool.models.Employee;
+import com.codecool.services.EmployeeToJSON;
 import com.codecool.services.IDParser;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import java.security.AccessControlException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+@WebServlet(urlPatterns = "/employees/*")
 public class GetEmployeeServlet extends HttpServlet {
 
 
@@ -37,11 +39,11 @@ public class GetEmployeeServlet extends HttpServlet {
 
         try {
             if(this.employeeDAO.getByID(productID) != null) {
-                ProductToJSON jsonObject= new ProductToJSON(this.employeeDAO.getByID(productID));
-                String productToJSON = jsonObject.productToJSON();
+                EmployeeToJSON jsonObject= new EmployeeToJSON(this.employeeDAO.getByID(productID));
+                String productToJSON = jsonObject.employeeToJSON();
                 response.getWriter().write(productToJSON);
             } else{
-                response.getWriter().write("chuj");
+                response.getWriter().write("No such ID");
             }
         } catch (SQLException | AccessControlException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
@@ -56,10 +58,25 @@ public class GetEmployeeServlet extends HttpServlet {
         String employeeID = idParser.getIDFromURI(request);
 
         try {
-            employeeDAO.delete(employeeDAO.getByID(productID));
+            employeeDAO.delete(employeeDAO.getByID(employeeID));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+    protected void doPut( HttpServletRequest request,
+                          HttpServletResponse response) {
+
+        String id = request.getParameter("id");
+        try {
+            Employee employee = this.employeeDAO.getByID(id);
+            employee.setFirstName(request.getParameter("firstName"));
+            employee.setLastName(request.getParameter("lastName"));
+            employee.setShopID(Integer.parseInt(request.getParameter("shopID")));
+            this.employeeDAO.update(employee);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

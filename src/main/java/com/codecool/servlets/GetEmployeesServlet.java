@@ -2,10 +2,8 @@ package com.codecool.servlets;
 
 import com.codecool.DAO.ConnectionToDB;
 import com.codecool.DAO.EmployeeDAO;
-import com.codecool.EmployeeToJSON;
-import com.codecool.ProductToJSON;
+import com.codecool.services.EmployeeToJSON;
 import com.codecool.models.Employee;
-import com.codecool.models.Product;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,9 +54,10 @@ public class GetEmployeesServlet extends HttpServlet {
         try {
             this.employeeDAO.create(new Employee(request.getParameter("firstName"),
                                     (request.getParameter("lastName")),
-                                    (Integer.parseInt(request.getParameter("shopID"))));
+                                    (Integer.parseInt(request.getParameter("shopID")))));
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

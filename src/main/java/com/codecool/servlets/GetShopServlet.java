@@ -1,9 +1,10 @@
 package com.codecool.servlets;
 
 import com.codecool.DAO.ConnectionToDB;
-import com.codecool.DAO.ProductDAO;
-import com.codecool.ShopToJSON;
+import com.codecool.DAO.ShopDAO;
+import com.codecool.models.Shop;
 import com.codecool.services.IDParser;
+import com.codecool.services.ShopToJSON;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,12 +20,12 @@ import java.sql.SQLException;
 public class GetShopServlet extends HttpServlet {
 
     private Connection connection;
-    private ProductDAO shopDAO;
+    private ShopDAO shopDAO;
     private IDParser idParser;
 
     public GetShopServlet() {
         this.connection = ConnectionToDB.getConnection();
-        this.shopDAO = new shopDAO(connection);
+        this.shopDAO = new ShopDAO(connection);
         this.idParser = new IDParser();
     }
 
@@ -40,7 +41,7 @@ public class GetShopServlet extends HttpServlet {
                 String shopToJSON = jsonObject.shopToJSON();
                 response.getWriter().write(shopToJSON);
             }else {
-                System.out.println("dupa");
+                System.out.println("No such ID");
             }
         } catch (InvocationTargetException | IllegalAccessException | SQLException e) {
             e.printStackTrace();
@@ -55,6 +56,20 @@ public class GetShopServlet extends HttpServlet {
 
         try {
             this.shopDAO.delete(shopDAO.getByID(shopID));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    protected void doPut( HttpServletRequest request,
+                          HttpServletResponse response) {
+
+        String id = request.getParameter("id");
+        try {
+            Shop shop = this.shopDAO.getByID(id);
+            shop.setLocation(request.getParameter("location"));
+            this.shopDAO.update(shop);
         } catch (SQLException e) {
             e.printStackTrace();
         }
