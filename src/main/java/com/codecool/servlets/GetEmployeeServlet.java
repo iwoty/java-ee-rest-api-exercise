@@ -43,9 +43,9 @@ public class GetEmployeeServlet extends HttpServlet {
                 String productToJSON = jsonObject.employeeToJSON();
                 response.getWriter().write(productToJSON);
             } else{
-                response.getWriter().write("No such ID");
+                redirectTo404(response);
             }
-        } catch (SQLException | AccessControlException | InvocationTargetException | IllegalAccessException e) {
+        } catch (SQLException | AccessControlException | InvocationTargetException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
 
@@ -78,5 +78,9 @@ public class GetEmployeeServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void redirectTo404(HttpServletResponse response) throws IOException {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
 }

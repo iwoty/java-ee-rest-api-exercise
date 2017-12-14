@@ -42,9 +42,9 @@ public class GetProductServlet extends HttpServlet {
                 String productToJSON = jsonObject.productToJSON();
                 response.getWriter().write(productToJSON);
             } else{
-                response.getWriter().write("No such ID");
+                redirectTo404(response);
             }
-        } catch (SQLException | AccessControlException | InvocationTargetException | IllegalAccessException e) {
+        } catch (SQLException | AccessControlException | InvocationTargetException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
 
@@ -64,7 +64,6 @@ public class GetProductServlet extends HttpServlet {
 
     }
 
-
     protected void doPut( HttpServletRequest request,
                           HttpServletResponse response) {
 
@@ -77,5 +76,9 @@ public class GetProductServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void redirectTo404(HttpServletResponse response) throws IOException {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
 }

@@ -52,9 +52,9 @@ public class GetShopServlet extends HttpServlet {
                     String shopToJSON = jsonObject.shopToJSON();
                     response.getWriter().write(shopToJSON);
                 }else {
-                    System.out.println("No such ID");
+                    redirectTo404(response);
                 }
-            } catch (InvocationTargetException | IllegalAccessException | SQLException e) {
+            } catch (InvocationTargetException | IllegalAccessException | SQLException | IOException e) {
                 e.printStackTrace();
             }
         }
@@ -100,10 +100,14 @@ public class GetShopServlet extends HttpServlet {
                     response.getWriter().write(jsonObject.employeeToJSON());
                 }
             } else {
-                System.out.println("No such ID");
+                redirectTo404(response);
             }
-        } catch (InvocationTargetException | IllegalAccessException | SQLException e) {
+        } catch (InvocationTargetException | IllegalAccessException | SQLException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void redirectTo404(HttpServletResponse response) throws IOException {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
 }
