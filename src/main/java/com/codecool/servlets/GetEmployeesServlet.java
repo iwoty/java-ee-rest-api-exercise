@@ -2,14 +2,24 @@ package com.codecool.servlets;
 
 import com.codecool.DAO.ConnectionToDB;
 import com.codecool.DAO.EmployeeDAO;
+import com.codecool.EmployeeToJSON;
+import com.codecool.ProductToJSON;
+import com.codecool.models.Employee;
+import com.codecool.models.Product;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
+@WebServlet(urlPatterns = "/employees")
 public class GetEmployeesServlet extends HttpServlet {
 
     private Connection connection;
@@ -17,24 +27,38 @@ public class GetEmployeesServlet extends HttpServlet {
 
     public GetEmployeesServlet() {
         this.connection = ConnectionToDB.getConnection();
-//        this.employeeDAO = new EmployeeDAO(connection);
+        this.employeeDAO = new EmployeeDAO(connection);
     }
 
     protected void doGet( HttpServletRequest request,
-                             HttpServletResponse response)
+                          HttpServletResponse response)
             throws ServletException, IOException {
 
-//        HttpServletResponse httpResponse = (HttpServletResponse) response;
-//
-//
-//        EmployeeToJSON objectToJSON = new EmployeeToJSON();
-//
-//        try {
-//
-//            response.getWriter().write(objectToJSON.employeeToJSON());
-//        } catch (InvocationTargetException | IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            List<Employee> employees = this.employeeDAO.readAll();
+            PrintWriter writer = response.getWriter();
+
+            for(Employee employee : employees) {
+                try {
+                    EmployeeToJSON jsonObject = new EmployeeToJSON(employee);
+                    writer.write(jsonObject.employeeToJSON());
+                } catch (InvocationTargetException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
     }
 
+    public void doPost(HttpServletRequest request,
+                       HttpServletResponse response) {
+        try {
+            this.employeeDAO.create(new Employee(request.getParameter("firstName"),
+                                    (request.getParameter("lastName")),
+                                    (Integer.parseInt(request.getParameter("shopID"))));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -60,7 +60,7 @@ public class ProductDAO extends AbstractDAO {
     public void delete(Product product) throws SQLException {
         String query = "DELETE FROM products WHERE id = ?;";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, String.valueOf(product.getID()));
+        statement.setInt(1, product.getID());
         statement.executeUpdate();
     }
 
