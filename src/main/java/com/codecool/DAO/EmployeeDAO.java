@@ -86,4 +86,19 @@ public class EmployeeDAO extends AbstractDAO {
 
         return new Employee(ID, firstName, lastName, shopID);
     }
+
+    public List<Employee> getEmployeesByShopID(String ID) throws SQLException {
+        List<Employee> employeeList = new ArrayList<>();
+
+        String query = "SELECT * FROM employees WHERE shop_id = ?;";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, Integer.parseInt(ID));
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            Employee employee = this.createEmployeeFromResultSet(resultSet);
+            employeeList.add(employee);
+        }
+        return employeeList;
+    }
 }
