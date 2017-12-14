@@ -46,15 +46,26 @@ public class ProductDAO extends AbstractDAO {
     public void create(Product product) throws SQLException {
         String query = "INSERT INTO products (name, price) VALUES (?, ?);";
         PreparedStatement statement = connection.prepareStatement(query);
-        setPreparedStatement(statement, product);
+        setPreparedCreateStatement(statement, product);
         statement.executeUpdate();
     }
 
+    private void setPreparedCreateStatement(PreparedStatement statement, Product product) throws SQLException {
+        statement.setString(1, product.getName());
+        statement.setFloat(2, product.getPrice());
+    }
+
     public void update(Product product) throws SQLException {
-        String query = "UPDATE products SET name = ?, price = ?;";
+        String query = "UPDATE products SET name = ?, price = ? WHERE id = ?;";
         PreparedStatement statement = connection.prepareStatement(query);
-        setPreparedStatement(statement, product);
+        setPreparedUpdateStatement(statement, product);
         statement.executeUpdate();
+    }
+
+    private void setPreparedUpdateStatement(PreparedStatement statement, Product product) throws SQLException {
+        statement.setString(1, product.getName());
+        statement.setFloat(2, product.getPrice());
+        statement.setInt(3, product.getID());
     }
 
     public void delete(Product product) throws SQLException {
@@ -62,11 +73,6 @@ public class ProductDAO extends AbstractDAO {
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, product.getID());
         statement.executeUpdate();
-    }
-
-    private void setPreparedStatement(PreparedStatement statement, Product product) throws SQLException {
-        statement.setString(1, product.getName());
-        statement.setFloat(2, product.getPrice());
     }
 
     Product createProductFromResultSet(ResultSet resultSet) throws SQLException {
